@@ -114,3 +114,57 @@ class QuizRunnerGUI:
         self.start_btn.pack_forget()
 
         self._display_question()
+
+    def _display_question(self):
+        if self.session.is_finished():
+            self._show_results()
+            return
+
+        question_data = self.session.questions[self.session.current_index]
+
+        self.q_frame = tk.Frame(self.window)
+        self.q_frame.pack(pady=40, padx=100)
+
+        self.question_label = tk.Label(
+            self.q_frame, 
+            text=question_data['question'], 
+            wraplength=500,
+            font=("Arial", 14, "bold")
+        )
+        self.question_label.pack(pady=10, padx=10)
+
+        self.answer_var = tk.StringVar(value=None)
+
+        for option in ['a', 'b', 'c', 'd']:
+            answer_text = f"{option.upper()}: {question_data['answers'][option]}"
+            rb = tk.Radiobutton(
+                self.q_frame,
+                text=answer_text,
+                variable=self.answer_var,
+                value=option,
+                wraplength=400,
+                justify='left',
+                font=("Arial", 12)
+            )
+            rb.pack(anchor='w', pady=10)
+
+        self.nav_frame = tk.Frame(self.window)
+        self.nav_frame.pack(pady=10)
+
+        if self.session.current_index < len(self.session.questions) - 1:
+            next_btn = tk.Button(self.nav_frame, text="Next", command=self._next_question)
+            next_btn.pack(side='right', padx=10)
+        else:
+            submit_btn = tk.Button(self.nav_frame, text="Submit", command=self._show_results)
+            submit_btn.pack(side='right', padx=10)
+
+    def _next_question(self):
+        selected = self.answer_var.get()
+        if not selected:
+            messagebox.showerror("Error!", "Please select an answer!")
+            return
+
+        self.session.record_answer(selected)
+        self.q_frame.destroy()
+        self.nav_frame.destroy()
+        self._display_question()
