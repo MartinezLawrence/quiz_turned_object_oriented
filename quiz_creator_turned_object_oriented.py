@@ -8,6 +8,7 @@ from tkinter import messagebox
 
 # create a window with fields for:
 class QuizQuestion:
+    """Represents a quiz question with multiple answers and the correct answer."""
     def __init__(self, question, answer_a, answer_b, answer_c, answer_d, correct_answer):
         self.question = question.strip()
         self.answer_a = answer_a.strip()
@@ -16,33 +17,16 @@ class QuizQuestion:
         self.answer_d = answer_d.strip()
         self.correct_answer = correct_answer.lower().strip()
 
-
-        # save button
-        self.save_button = tk.Button(self.window, text="Save Question", command=self.save_question)
-        self.save_button.pack()
-
-        # exit button
-        self.exit_button = tk.Button(self.window, text="Exit", command=self.window.destroy)
-        self.exit_button.pack()
-
-    # this is where input validation occurs
-    # check if all fields are filled out
-    def save_question(self):
-        question = self.question_entry.get("1.0", tk.END).strip()
-        answer_a = self.answer_a_entry.get()
-        answer_b = self.answer_b_entry.get()
-        answer_c = self.answer_c_entry.get()
-        answer_d = self.answer_d_entry.get()
-        correct_answer = self.correct_answer_entry.get().lower()
-
-        def is_valid(self):
+    def is_valid(self):
+        """Validate that all fields are filled and correct answer is valid."""
         if not all([self.question, self.answer_a, self.answer_b, self.answer_c, self.answer_d]):
             return False
         if self.correct_answer not in ['a', 'b', 'c', 'd']:
             return False
         return True
-        
-         def format_for_file(self):
+
+    def format_for_file(self):
+        """Format the question and answers for saving to a file."""
         return (
             f"Question: {self.question}\n"
             f"A: {self.answer_a}\n"
@@ -51,13 +35,14 @@ class QuizQuestion:
             f"D: {self.answer_d}\n"
             f"Correct Answer: {self.correct_answer}\n\n"
         )
+    
+class QuizCreatorGUI:
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title("Quiz Creator 6969")
 
+        self.file_handler = QuizFileHandler()
 
-    # this starts tkinter's event loop
-    def run(self):    
-        self.window.mainloop()
-     
- # this will run the program and keep it open until the user exits
-if __name__ == "__main__":
-    quiz_creator = QuizCreator()
-    quiz_creator.run()
+        self._create_widgets()
+
+        
