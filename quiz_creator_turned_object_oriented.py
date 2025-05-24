@@ -35,17 +35,12 @@ class QuizQuestion:
         answer_d = self.answer_d_entry.get()
         correct_answer = self.correct_answer_entry.get().lower()
 
-        # check if the correct answer is one of the options
-        if question and answer_a and answer_b and answer_c and answer_d and correct_answer in ['a', 'b', 'c', 'd']:
-            with open("quiz_questions.txt", "a") as file:
-                
-                # if input is valid, save the question and answers to a file
-                file.write(f"Question: {question}\n")
-                file.write(f"A: {answer_a}\n")
-                file.write(f"B: {answer_b}\n")
-                file.write(f"C: {answer_c}\n")
-                file.write(f"D: {answer_d}\n")
-                file.write(f"Correct Answer: {correct_answer}\n\n")
+        def is_valid(self):
+        if not all([self.question, self.answer_a, self.answer_b, self.answer_c, self.answer_d]):
+            return False
+        if self.correct_answer not in ['a', 'b', 'c', 'd']:
+            return False
+        return True
         
             # after saving, clear all fields for the next question
             self.question_entry.delete("1.0", tk.END)
