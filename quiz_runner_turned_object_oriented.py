@@ -33,3 +33,19 @@ class QuizDataLoader:
             return self.questions
         except FileNotFoundError:
             raise FileNotFoundError(f"Quiz questions file '{self.filename}' not found.")
+
+class QuizSession:   
+    def __init__(self, user_name, questions, score_filename="quiz_score.txt"):
+        self.user_name = user_name
+        self.questions = questions
+        self.score_filename = score_filename
+        self.current_index = 0
+        self.user_answers = []
+
+    def record_answer(self, answer):
+        self.user_answers.append(answer)
+        self.current_index += 1
+
+    def is_finished(self):
+        return self.current_index >= len(self.questions)
+
