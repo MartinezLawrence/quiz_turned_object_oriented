@@ -95,3 +95,11 @@ class QuizCreatorGUI:
                 messagebox.showerror("Error!", f"Failed to save question: {e}")
         else:
             messagebox.showerror("Error!", "Please fill out all fields correctly.")
+
+    def _clear_fields(self):
+        self.question_entry.delete("1.0", tk.END)
+        self.answer_a_entry.delete(0, tk.END)
+        self.answer_b_entry.delete(0, tk.END)
+        self.answer_c_entry.delete(0, tk.END)
+        self.answer_d_entry.delete(0, tk.END)
+        self.correct_answer_entry.delete(0, tk.END)
