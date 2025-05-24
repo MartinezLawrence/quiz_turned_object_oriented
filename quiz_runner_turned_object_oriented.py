@@ -49,3 +49,8 @@ class QuizSession:
     def is_finished(self):
         return self.current_index >= len(self.questions)
 
+    def calculate_score(self):
+        return sum(
+            1 for i, q in enumerate(self.questions) 
+            if i < len(self.user_answers) and self.user_answers[i] == q['correct']
+        )
