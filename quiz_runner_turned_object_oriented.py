@@ -78,3 +78,13 @@ class QuizRunnerGUI:
         self.session = None
 
         self._setup_start_screen()
+
+    def _setup_start_screen(self):
+        self.name_label = tk.Label(self.window, text="Enter your name:")
+        self.name_label.pack(pady=20)
+
+        self.name_entry = tk.Entry(self.window, width=60)
+        self.name_entry.pack(pady=10)
+
+        self.start_btn = tk.Button(self.window, text="Start Quiz", command=self.start_quiz)
+        self.start_btn.pack(pady=20)
