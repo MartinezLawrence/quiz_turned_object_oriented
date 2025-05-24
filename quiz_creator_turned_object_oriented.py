@@ -36,6 +36,17 @@ class QuizQuestion:
             f"Correct Answer: {self.correct_answer}\n\n"
         )
     
+class QuizFileHandler:
+    def __init__(self, filename="quiz_questions.txt"):
+        self.filename = filename
+
+    def save_question(self, quiz_question: QuizQuestion):
+        """Append a valid quiz question to the file."""
+        if not quiz_question.is_valid():
+            raise ValueError("Invalid quiz question data.")
+        with open(self.filename, "a", encoding="utf-8") as file:
+            file.write(quiz_question.format_for_file())
+    
 class QuizCreatorGUI:
     def __init__(self):
         self.window = tk.Tk()
@@ -106,3 +117,7 @@ class QuizCreatorGUI:
 
     def run(self):
         self.window.mainloop()
+
+if __name__ == "__main__":
+    app = QuizCreatorGUI()
+    app.run()
