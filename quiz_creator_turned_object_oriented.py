@@ -103,3 +103,6 @@ class QuizCreatorGUI:
         self.answer_c_entry.delete(0, tk.END)
         self.answer_d_entry.delete(0, tk.END)
         self.correct_answer_entry.delete(0, tk.END)
+
+    def run(self):
+        self.window.mainloop()
