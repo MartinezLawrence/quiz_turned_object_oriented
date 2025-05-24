@@ -46,7 +46,7 @@ class QuizFileHandler:
             raise ValueError("Invalid quiz question data.")
         with open(self.filename, "a", encoding="utf-8") as file:
             file.write(quiz_question.format_for_file())
-    
+            
 class QuizCreatorGUI:
     def __init__(self):
         self.window = tk.Tk()
@@ -119,5 +119,5 @@ class QuizCreatorGUI:
         self.window.mainloop()
 
 if __name__ == "__main__":
-    app = QuizCreatorGUI()
-    app.run()
+    quiz = QuizCreatorGUI()
+    quiz.run()
