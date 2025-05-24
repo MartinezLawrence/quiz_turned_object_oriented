@@ -88,3 +88,29 @@ class QuizRunnerGUI:
 
         self.start_btn = tk.Button(self.window, text="Start Quiz", command=self.start_quiz)
         self.start_btn.pack(pady=20)
+
+    def start_quiz(self):
+        user_name = self.name_entry.get().strip()
+        if not user_name:
+            messagebox.showerror("Error!", "Please enter your name!")
+            return
+
+        try:
+            questions = self.data_loader.load_questions()
+            if not questions:
+                messagebox.showerror("Error!", "No questions found!")
+                self.window.destroy()
+                return
+        except FileNotFoundError as e:
+            messagebox.showerror("Error!", str(e))
+            self.window.destroy()
+            return
+
+        self.session = QuizSession(user_name, questions)
+
+        # Clear start screen widgets
+        self.name_label.pack_forget()
+        self.name_entry.pack_forget()
+        self.start_btn.pack_forget()
+
+        self._display_question()
