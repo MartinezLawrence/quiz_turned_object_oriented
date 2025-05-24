@@ -69,3 +69,12 @@ class QuizSession:
             file.write("-" * 50 + "\n")
         return score
     
+class QuizRunnerGUI:
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title("QuizRunner")
+
+        self.data_loader = QuizDataLoader()
+        self.session = None
+
+        self._setup_start_screen()
