@@ -54,3 +54,18 @@ class QuizSession:
             1 for i, q in enumerate(self.questions) 
             if i < len(self.user_answers) and self.user_answers[i] == q['correct']
         )
+
+    def save_results(self):
+        score = self.calculate_score()
+        with open(self.score_filename, "a", encoding="utf-8") as file:
+            file.write(f"Name: {self.user_name}\n")
+            file.write(f"Score: {score}/{len(self.questions)}\n")
+            for i, question in enumerate(self.questions):
+                user_answer = self.user_answers[i].upper() if i < len(self.user_answers) else "N/A"
+                correct_answer = question['correct'].upper()
+                file.write(f"Q{i+1}: {question['question']}\n")
+                file.write(f"Your Answer: {user_answer}\n")
+                file.write(f"Correct Answer: {correct_answer}\n\n")
+            file.write("-" * 50 + "\n")
+        return score
+    
