@@ -45,4 +45,27 @@ class QuizCreatorGUI:
 
         self._create_widgets()
 
-        
+    def _create_widgets(self):
+        # Question
+        tk.Label(self.window, text="Question:").pack(anchor="w", padx=10, pady=(10, 0))
+        self.question_entry = tk.Text(self.window, height=5, width=50)
+        self.question_entry.pack(padx=10)
+
+        # Answers A-D
+        self.answer_a_entry = self._create_labeled_entry("Answer A:")
+        self.answer_b_entry = self._create_labeled_entry("Answer B:")
+        self.answer_c_entry = self._create_labeled_entry("Answer C:")
+        self.answer_d_entry = self._create_labeled_entry("Answer D:")
+
+        # Correct answer
+        self.correct_answer_entry = self._create_labeled_entry("Correct Answer (A/B/C/D):")
+
+        # Buttons
+        button_frame = tk.Frame(self.window)
+        button_frame.pack(pady=10)
+
+        save_button = tk.Button(button_frame, text="Save Question", command=self.save_question)
+        save_button.pack(side="left", padx=5)
+
+        exit_button = tk.Button(button_frame, text="Exit", command=self.window.destroy)
+        exit_button.pack(side="left", padx=5)
