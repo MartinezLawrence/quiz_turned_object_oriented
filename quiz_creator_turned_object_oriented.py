@@ -69,3 +69,9 @@ class QuizCreatorGUI:
 
         exit_button = tk.Button(button_frame, text="Exit", command=self.window.destroy)
         exit_button.pack(side="left", padx=5)
+
+    def _create_labeled_entry(self, label_text):
+        tk.Label(self.window, text=label_text).pack(anchor="w", padx=10, pady=(10, 0))
+        entry = tk.Entry(self.window, width=50)
+        entry.pack(padx=10)
+        return entry
