@@ -42,18 +42,16 @@ class QuizQuestion:
             return False
         return True
         
-            # after saving, clear all fields for the next question
-            self.question_entry.delete("1.0", tk.END)
-            self.answer_a_entry.delete(0, tk.END)
-            self.answer_b_entry.delete(0, tk.END)
-            self.answer_c_entry.delete(0, tk.END)
-            self.answer_d_entry.delete(0, tk.END)
-            self.correct_answer_entry.delete(0, tk.END)
- 
-            # after saving, display a success message to the user
-            messagebox.showinfo("Success!", "Question saved successfully!")
-        else:
-            messagebox.showerror("Error!", "Please fill out all fields correctly.")
+         def format_for_file(self):
+        return (
+            f"Question: {self.question}\n"
+            f"A: {self.answer_a}\n"
+            f"B: {self.answer_b}\n"
+            f"C: {self.answer_c}\n"
+            f"D: {self.answer_d}\n"
+            f"Correct Answer: {self.correct_answer}\n\n"
+        )
+
 
     # this starts tkinter's event loop
     def run(self):    
