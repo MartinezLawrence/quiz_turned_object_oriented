@@ -75,3 +75,23 @@ class QuizCreatorGUI:
         entry = tk.Entry(self.window, width=50)
         entry.pack(padx=10)
         return entry
+
+    def save_question(self):
+        question = self.question_entry.get("1.0", tk.END)
+        answer_a = self.answer_a_entry.get()
+        answer_b = self.answer_b_entry.get()
+        answer_c = self.answer_c_entry.get()
+        answer_d = self.answer_d_entry.get()
+        correct_answer = self.correct_answer_entry.get()
+
+        quiz_question = QuizQuestion(question, answer_a, answer_b, answer_c, answer_d, correct_answer)
+
+        if quiz_question.is_valid():
+            try:
+                self.file_handler.save_question(quiz_question)
+                self._clear_fields()
+                messagebox.showinfo("Success!", "Question saved successfully!")
+            except Exception as e:
+                messagebox.showerror("Error!", f"Failed to save question: {e}")
+        else:
+            messagebox.showerror("Error!", "Please fill out all fields correctly.")
